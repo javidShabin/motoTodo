@@ -26,6 +26,26 @@ const addItems = async (req, res) => {
   }
 };
 
+const getItemById = async (req, res) => {
+  try {
+    const { id } = req.params; // Get the item ID from the request parameters
+
+    // Find the item by ID in the database
+    const item = await Item.findById(id);
+
+    // If no item is found, return a 404 error
+    if (!item) {
+      return res.status(404).json({ message: "Item not found." });
+    }
+
+    // Return the found item
+    res.status(200).json({ item });
+  } catch (error) {
+    console.error("Error getting item:", error);
+    res.status(500).json({ message: "Internal server error." });
+  }
+};
+
 const getAllItems = async (req, res) => {
   try {
     const items = await Item.find();
@@ -47,11 +67,9 @@ const editItem = async (req, res) => {
     const { vehicle, item } = req.body; // Get fields to update
 
     if (!vehicle && !item) {
-      return res
-        .status(400)
-        .json({
-          message: "Provide at least one field to update (vehicle or item).",
-        });
+      return res.status(400).json({
+        message: "Provide at least one field to update (vehicle or item).",
+      });
     }
 
     const updatedItem = await Item.findByIdAndUpdate(
@@ -92,4 +110,4 @@ const deleteItem = async (req, res) => {
   }
 };
 
-module.exports = { addItems, getAllItems, editItem, deleteItem };
+module.exports = { addItems, getItemById, getAllItems, editItem, deleteItem };
