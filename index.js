@@ -9,7 +9,7 @@ const port = 2000;
 
 app.use(cors({
   credentials: true,
-  origin: "https://task-management-to-do-sigma.vercel.app"
+  origin: "https://task-management-to-do-git-main-javid-shabins-projects.vercel.app"
 }));
 app.use(cookieParser())
 app.use(express.json());
