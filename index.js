@@ -9,7 +9,7 @@ const port = 2000;
 
 app.use(cors({
   credentials: true,
-  origin: "http://localhost:5173"
+  origin: "https://task-management-to-do-ten.vercel.app/"
 }));
 app.use(cookieParser())
 app.use(express.json());
