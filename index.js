@@ -10,7 +10,7 @@ const port = 2000;
 // Middleware for CORS
 app.use(cors({
   credentials: true,
-  origin: true
+  origin: "http://localhost:5173"
 }));
 
 // Middleware for cookies and JSON parsing
