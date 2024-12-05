@@ -1,10 +1,16 @@
-const express = require("express")
-const { addItems, editItem, deleteItem, getAllItems } = require("../../controller/taskController")
-const router = express()
+const express = require("express");
+const {
+  addItems,
+  editItem,
+  deleteItem,
+  getAllItems,
+} = require("../../controller/taskController");
+const router = express.Router(); // Correctly initialize the router
 
-router.post("/addItems", addItems)
-router.get("/getAllItems", getAllItems)
-router.put("/editItems", editItem)
-router.delete("/deleteItems", deleteItem)
+// Define routes
+router.post("/addItems", addItems);
+router.get("/getAllItems", getAllItems);
+router.put("/editItem/:id", editItem); // Added :id to handle the parameter
+router.delete("/deleteItem/:id", deleteItem); // Added :id to handle the parameter
 
-module.exports = {taskRouter: router}
+module.exports = { taskRouter: router };

@@ -2,7 +2,6 @@ const { Item } = require("../model/taskModel");
 
 const addItems = async (req, res) => {
   try {
-    // Extract data from the request body
     const { vehicle, item } = req.body;
 
     // Validate the input
@@ -18,12 +17,10 @@ const addItems = async (req, res) => {
     // Save the item to the database
     await newItem.save();
 
-    // Send success response
     res
       .status(201)
       .json({ message: "Item added successfully.", item: newItem });
   } catch (error) {
-    // Handle errors
     console.error("Error adding item:", error);
     res.status(500).json({ message: "Internal server error." });
   }
@@ -31,15 +28,12 @@ const addItems = async (req, res) => {
 
 const getAllItems = async (req, res) => {
   try {
-    // Fetch all items from the database
     const items = await Item.find();
 
-    // Check if no items are found
     if (items.length === 0) {
       return res.status(404).json({ message: "No items found." });
     }
 
-    // Send the retrieved items in the response
     res.status(200).json({ message: "Items retrieved successfully.", items });
   } catch (error) {
     console.error("Error retrieving items:", error);
@@ -49,21 +43,21 @@ const getAllItems = async (req, res) => {
 
 const editItem = async (req, res) => {
   try {
-    const { id } = req.params; // Get the item ID from the request params
-    const { vehicle, item } = req.body; // Get the fields to update from the request body
+    const { id } = req.params; // Get the item ID from the URL
+    const { vehicle, item } = req.body; // Get fields to update
 
-    // Validate input
     if (!vehicle && !item) {
-      return res.status(400).json({
-        message: "Provide at least one field to update (vehicle or item).",
-      });
+      return res
+        .status(400)
+        .json({
+          message: "Provide at least one field to update (vehicle or item).",
+        });
     }
 
-    // Find the item by ID and update it
     const updatedItem = await Item.findByIdAndUpdate(
       id,
       { vehicle, item },
-      { new: true, runValidators: true } // Return the updated document and validate fields
+      { new: true, runValidators: true }
     );
 
     if (!updatedItem) {
@@ -81,9 +75,8 @@ const editItem = async (req, res) => {
 
 const deleteItem = async (req, res) => {
   try {
-    const { id } = req.params; // Get the item ID from the request params
+    const { id } = req.params;
 
-    // Find the item by ID and delete it
     const deletedItem = await Item.findByIdAndDelete(id);
 
     if (!deletedItem) {
@@ -99,4 +92,4 @@ const deleteItem = async (req, res) => {
   }
 };
 
-module.exports = { addItems,getAllItems, editItem, deleteItem };
+module.exports = { addItems, getAllItems, editItem, deleteItem };
