@@ -9,7 +9,7 @@ const port = 2000;
 
 app.use(cors({
   credentials: true,
-  origin: true
+  origin: "https://task-management-to-do-sigma.vercel.app"
 }));
 app.use(cookieParser())
 app.use(express.json());
