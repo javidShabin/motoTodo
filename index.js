@@ -10,7 +10,7 @@ const port = 2000;
 app.use(
   cors({
     credentials: true,
-    origin: "https://todo-frontend-alpha-ashen.vercel.app/",
+    origin: "https://todo-frontend-alpha-ashen.vercel.app",
   })
 );
 
