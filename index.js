@@ -10,9 +10,7 @@ const port = 2000;
 // Middleware for CORS
 app.use(cors({
   credentials: true,
-  origin: "https://task-management-to-do-ten.vercel.app", // Removed trailing slash
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Explicitly allow these methods
-  allowedHeaders: "Content-Type,Authorization", // Specify allowed headers
+  origin: true
 }));
 
 // Middleware for cookies and JSON parsing
