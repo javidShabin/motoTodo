@@ -21,10 +21,7 @@ app.use(express.json());
 app.use('/api', apiRouter);
 
 // MongoDB Database Connection
-dbconnection().catch(error => {
-  console.error("Failed to connect to the database:", error.message);
-  process.exit(1); // Exit process on connection error
-});
+dbconnection()
 
 // Start the Express Server
 app.listen(port, () => {
