@@ -1,25 +1,34 @@
 require('dotenv').config();
 const express = require("express");
 const app = express();
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
 const cors = require("cors");
 const { dbconnection } = require("./config/dbConnection");
 const { apiRouter } = require('./routes');
 const port = 2000;
 
+// Middleware for CORS
 app.use(cors({
   credentials: true,
-  origin: "https://task-management-to-do-ten.vercel.app/"
+  origin: "https://task-management-to-do-ten.vercel.app", // Removed trailing slash
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Explicitly allow these methods
+  allowedHeaders: "Content-Type,Authorization", // Specify allowed headers
 }));
-app.use(cookieParser())
+
+// Middleware for cookies and JSON parsing
+app.use(cookieParser());
 app.use(express.json());
 
-app.use('/api', apiRouter)
+// API Routes
+app.use('/api', apiRouter);
 
-// Mogobd databse connection string
-dbconnection();
+// MongoDB Database Connection
+dbconnection().catch(error => {
+  console.error("Failed to connect to the database:", error.message);
+  process.exit(1); // Exit process on connection error
+});
 
-// Create a server in express
+// Start the Express Server
 app.listen(port, () => {
-  console.log(`The server running in port ${port}`);
+  console.log(`The server is running on port ${port}`);
 });
